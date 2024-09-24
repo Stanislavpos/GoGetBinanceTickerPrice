@@ -6,6 +6,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"time"
 )
 
 /*
@@ -34,8 +35,19 @@ func formHandler(requestType string, pair string) string {
 }
 
 func TickerPrice(pair string) string {
+
+	//url := formHandler("ticker/price", pair)
+	//resp := http.Client{Timeout: 2 * time.Second}
+	//if _, err := resp.Get(url); err != nil {
+	//	log.Fatal(err)
+	//}
+
+	client := http.Client{
+		Timeout: 2 * time.Second,
+	}
+
 	url := formHandler("ticker/price", pair)
-	resp, err := http.Get(url)
+	resp, err := client.Get(url)
 	if err != nil {
 		log.Fatalln(err)
 	}
